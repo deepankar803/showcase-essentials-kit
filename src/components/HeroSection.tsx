@@ -45,7 +45,7 @@ const HeroSection = () => {
               variant="hero" 
               size="xl"
               onClick={scrollToProjects}
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              className="bg-emerald-500 text-white hover:bg-emerald-600 hover:scale-105 shadow-lg hover:shadow-emerald-500/30"
             >
               View My Projects
               <ArrowDown className="ml-2 h-5 w-5" />
@@ -53,7 +53,7 @@ const HeroSection = () => {
             <Button 
               variant="outline" 
               size="xl"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+              className="border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white hover:scale-105 bg-transparent"
             >
               <Download className="mr-2 h-5 w-5" />
               Download Resume
