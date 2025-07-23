@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Portfolio Design System - Professional tech-focused theme */
+/* Portfolio Design System - Professional modern theme */
 
 @layer base {
   :root {
@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 27%;
 
-    /* Professional blue-purple gradient theme */
+    /* Professional gradient theme */
     --primary: 245 58% 51%;
     --primary-foreground: 0 0% 100%;
     --primary-hover: 245 58% 45%;
@@ -36,13 +36,23 @@
     --input: 220 13% 91%;
     --ring: 245 58% 51%;
 
-    /* Portfolio specific colors */
+    /* Modern gradient system */
     --hero-gradient-start: 245 58% 51%;
     --hero-gradient-end: 264 69% 54%;
+    --hero-gradient-accent: 280 65% 60%;
+    --glass-gradient-start: 245 58% 51%;
+    --glass-gradient-end: 264 69% 54%;
+    
+    /* Professional color palette */
     --tech-bg: 220 13% 98%;
+    --tech-accent: 245 58% 96%;
     --project-shadow: 245 58% 51%;
+    --project-glow: 245 58% 51%;
     --success: 142 71% 45%;
     --warning: 38 92% 50%;
+    --info: 204 94% 94%;
+    --glass-bg: 255 255 255;
+    --glass-border: 255 255 255;
 
     --radius: 0.5rem;
 
@@ -73,8 +83,9 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 245 58% 51%;
+    --primary-foreground: 210 40% 98%;
+    --primary-hover: 245 58% 45%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -91,6 +102,22 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
+    /* Dark mode gradients */
+    --hero-gradient-start: 245 58% 25%;
+    --hero-gradient-end: 264 69% 30%;
+    --hero-gradient-accent: 280 65% 35%;
+    --glass-gradient-start: 245 58% 25%;
+    --glass-gradient-end: 264 69% 30%;
+    
+    /* Dark mode colors */
+    --tech-bg: 217.2 32.6% 17.5%;
+    --tech-accent: 217.2 32.6% 12%;
+    --project-shadow: 245 58% 25%;
+    --project-glow: 245 58% 35%;
+    --glass-bg: 255 255 255;
+    --glass-border: 255 255 255;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -108,30 +135,88 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
   }
 }
 
 /* Portfolio Custom Styles */
 @layer components {
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(var(--hero-gradient-start)), hsl(var(--hero-gradient-end)));
+    background: linear-gradient(135deg, hsl(var(--hero-gradient-start)), hsl(var(--hero-gradient-end)), hsl(var(--hero-gradient-accent)));
+    background-size: 200% 200%;
+    animation: gradient-shift 6s ease infinite;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-xl border border-white/20;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  
+  .glass-navbar {
+    @apply backdrop-blur-xl border-b border-white/20;
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .dark .glass-navbar {
+    background: rgba(34, 34, 47, 0.95);
   }
   
   .tech-badge {
-    @apply bg-tech-bg text-primary font-medium px-3 py-1 rounded-full text-sm;
+    @apply bg-tech-bg text-primary font-medium px-4 py-2 rounded-full text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-tech-accent;
   }
   
   .project-card {
-    @apply bg-card border border-border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-project-shadow/20 hover:-translate-y-1;
+    @apply bg-card border border-border rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-project-glow/20 hover:-translate-y-2 group;
+    backdrop-filter: blur(10px);
+  }
+  
+  .project-card:hover {
+    @apply border-project-glow/30;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-foreground mb-6;
+    @apply text-4xl md:text-5xl font-bold text-foreground mb-6 font-playfair;
   }
   
   .section-subtitle {
-    @apply text-lg text-muted-foreground mb-12 max-w-2xl mx-auto;
+    @apply text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed;
+  }
+  
+  .skill-card {
+    @apply p-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .animated-bg {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .animated-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  
+  .animated-bg:hover::before {
+    transform: translateX(100%);
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent;
+  }
+  
+  .floating-element {
+    @apply animate-float;
   }
 }
 
