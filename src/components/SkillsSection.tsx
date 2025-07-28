@@ -1,10 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
-import { useState } from "react";
-
 const SkillsSection = () => {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-  
   const skillCategories = [
     {
       title: "Frontend",
